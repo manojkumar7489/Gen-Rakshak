@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PS 26102 — Tracing the Rupee | MPLADS Anomaly Detection</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,500&family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+ 
+<!-- ================= HERO ================= -->
+<section class="hero">
+  <div class="eyebrow">TEAM GENRAKSHAK · SIH 2026 · PS 26102 · MoSPI — DIID · SOFTWARE · SMART AUTOMATION</div>
+  <h1>Every rupee leaves Parliament.<br>Not every rupee <em>arrives.</em></h1>
+  <p class="sub">Since 1993, MPLADS has pushed roughly <b>₹4,000 crore a year</b> from the Centre through 788 MPs into district authorities and contractors, for roads, handpumps, schools, community halls. The paper trail is public. The pattern-breaking is not — nobody is reading all of it. That's the gap GenRakshak is building an AI system to close.</p>
+  <p class="sub" style="margin-top:0.7rem; font-style:italic; color:var(--gold);">"From Challenges to Change" — AI-powered monitoring for a more transparent and impactful MPLADS.</p>
+ 
+  <div class="flow-wrap">
+    <svg viewBox="0 0 860 220" xmlns="http://www.w3.org/2000/svg">
+      <!-- base pipes -->
+      <path class="pipe" d="M60,40 C 220,40 220,40 260,40" />
+      <path class="pipe" d="M260,40 C 340,40 340,20 420,20" />
+      <path class="pipe" d="M260,40 C 340,40 340,60 420,60" />
+      <path class="pipe" d="M260,40 C 340,40 340,100 420,100" />
+      <path class="pipe" d="M260,40 C 340,40 340,150 420,150" />
+ 
+      <path class="pipe" d="M420,20 C 500,20 500,20 560,20" />
+      <path class="pipe" d="M420,60 C 500,60 500,60 560,60" />
+      <path class="pipe" d="M420,100 C 500,100 500,90 560,90" />
+      <path class="pipe" d="M420,100 C 500,100 500,120 560,120" />
+      <path class="pipe" d="M420,150 C 500,150 500,150 560,150" />
+ 
+      <path class="pipe" d="M560,20 C 640,20 640,20 700,20" />
+      <path class="pipe" d="M560,60 C 640,60 640,60 700,60" />
+      <path class="pipe" d="M560,90 C 640,90 640,90 700,90" />
+      <path class="pipe" d="M560,120 C 640,120 640,120 700,120" />
+      <path class="pipe" d="M560,150 C 640,150 640,150 700,150" />
+ 
+      <!-- animated flow overlay -->
+      <path class="pipe-flow" d="M60,40 C 220,40 220,40 260,40" />
+      <path class="pipe-flow" d="M260,40 C 340,40 340,20 420,20" />
+      <path class="pipe-flow" d="M260,40 C 340,40 340,60 420,60" />
+      <path class="pipe-flow" d="M260,40 C 340,40 340,100 420,100" />
+      <path class="pipe-flow" d="M260,40 C 340,40 340,150 420,150" />
+      <path class="pipe-flow" d="M420,20 C 500,20 500,20 560,20" />
+      <path class="pipe-flow" d="M420,60 C 500,60 500,60 560,60" />
+      <path class="pipe-flow" d="M420,100 C 500,100 500,90 560,90" />
+      <path class="pipe-flow" d="M420,150 C 500,150 500,150 560,150" />
+ 
+      <!-- nodes -->
+      <circle class="node-dot" cx="60" cy="40" r="4"/>
+      <circle class="node-dot" cx="260" cy="40" r="4"/>
+      <circle class="node-dot" cx="420" cy="20" r="3.5"/>
+      <circle class="node-dot" cx="420" cy="60" r="3.5"/>
+      <circle class="node-dot" cx="420" cy="100" r="3.5"/>
+      <circle class="node-dot" cx="420" cy="150" r="3.5"/>
+      <circle class="node-dot" cx="560" cy="20" r="3"/>
+      <circle class="node-dot" cx="560" cy="60" r="3"/>
+      <circle class="node-dot" cx="560" cy="90" r="3"/>
+      <circle class="node-dot" cx="560" cy="120" r="3"/>
+      <circle class="node-dot" cx="560" cy="150" r="3"/>
+ 
+      <!-- leaks: where money silently disappears -->
+      <circle class="leak-dot" cx="420" cy="100" r="4"/>
+      <circle class="leak-dot" cx="560" cy="90" r="4" style="animation-delay:0.6s"/>
+      <circle class="leak-dot" cx="560" cy="120" r="4" style="animation-delay:1.1s"/>
+ 
+      <!-- labels -->
+      <text class="node-label" x="30" y="26">CONSOLIDATED FUND</text>
+      <text class="node-label" x="235" y="26">MP</text>
+      <text class="node-label" x="392" y="10">STATE NODAL DEPT</text>
+      <text class="node-label" x="392" y="180">DISTRICT AUTHORITY</text>
+      <text class="node-label" x="580" y="180">IMPLEMENTING AGENCY / WORK</text>
+ 
+      <text class="leak-label" x="428" y="112">unsanctioned work</text>
+      <text class="leak-label" x="480" y="78">no tender invited</text>
+      <text class="leak-label" x="480" y="138">ghost / duplicate billing</text>
+    </svg>
+  </div>
+ 
+  <div class="hero-meta">
+    <span><b>₹4,000 Cr</b>disbursed / year, nationally</span>
+    <span><b>788 MPs</b>Lok Sabha + Rajya Sabha</span>
+    <span><b>32 years</b>running since 1993</span>
+    <span><b>Live dataset</b>mplads.mospi.gov.in</span>
+  </div>
+ 
+  <div class="scroll-cue">↓ why this one, not another problem statement</div>
+</section>
+ 
+<!-- ================= SCALE ================= -->
+<section class="scale">
+  <div class="scale-head">
+    <div class="eyebrow" style="color:var(--red);">01 — THE SCALE</div>
+    <h2>This isn't a toy dataset. It's a national scheme with real money and no room to hand-check it.</h2>
+    <p>Each of India's 543 Lok Sabha and roughly 245 Rajya Sabha members is entitled to ₹5 crore a year, paid straight to district authorities in two installments, non-lapsable so unspent balances just carry forward and pile up. That's before you count interest income, carried-forward balances, and disaster-relief top-ups. Multiply that by lakhs of individual works — roads, handpumps, school rooms, crematorium walls — each with its own sanction, cost estimate, contractor, and completion certificate, and you get a dataset no team of auditors can read line by line.</p>
+  </div>
+ 
+  <div class="stat-grid">
+    <div class="stat"><div class="num">₹<span>4,000</span> Cr</div><div class="label">approximate value released under MPLADS every single year, across all MPs combined</div></div>
+    <div class="stat"><div class="num">788</div><div class="label">sitting MPs each independently recommending works — 788 parallel decision-makers to monitor</div></div>
+    <div class="stat"><div class="num">3</div><div class="label">CAG performance audits (1998, 2001, 2010–11) that found the <em>same</em> systemic weaknesses each time</div></div>
+    <div class="stat"><div class="num">100%</div><div class="label">of the underlying data is already public, structured, and sitting on a government dashboard</div></div>
+  </div>
+</section>
+ 
+<!-- ================= EVIDENCE ================= -->
+<section class="evidence">
+  <div class="eyebrow">02 — THE EVIDENCE</div>
+  <h2>This isn't a hypothetical fraud risk. It's a documented, repeating one.</h2>
+  <p class="intro">The Comptroller and Auditor General has audited MPLADS three times and flagged the same category of failures each time — the 2010–11 report even calls out that the "systemic weaknesses... had persisted since inception 17 years ago." That repetition is itself the strongest argument for automation: manual, periodic audits keep re-discovering the same problem years apart, on a scheme that pays out every single day in between.</p>
+ 
+  <div class="timeline">
+    <div class="tl-item"><div class="tl-year">1998</div><div class="tl-text">First CAG performance audit of MPLADS. Weak monitoring and sanctioning gaps flagged for the first time.</div></div>
+    <div class="tl-item"><div class="tl-year">2001</div><div class="tl-text">Second audit. Same category of lapses recur — action-taken notes on the 1998 report were still pending.</div></div>
+    <div class="tl-item"><div class="tl-year">2010–11</div><div class="tl-text">Third audit explicitly states the weaknesses have "persisted since inception," 17 years on. Action-taken note on the 2001 report took 8 years to even arrive.</div></div>
+    <div class="tl-item"><div class="tl-year">2018</div><div class="tl-text">CAG Report No. 4 names specific fraud: payments made without tender, and for works never actually built.</div></div>
+    <div class="tl-item"><div class="tl-year">Today</div><div class="tl-text">The live MPLADS dashboard still reports fund utilization, delays and pending works — the raw signal has been sitting there the whole time.</div></div>
+  </div>
+ 
+  <div class="case-grid">
+    <div class="case">
+      <span class="tag">Ghost &amp; duplicate works</span>
+      <h3>Gujarat, 2018</h3>
+      <p>CAG Report No. 4 found ₹5.93 crore paid to a cooperative society without any tender, plus ₹84.53 lakh billed for works in a village adopted under the scheme. One line item claimed renovation of the <em>same panchayat building twice</em> a year apart. Auditors visited several sanctioned sites and found no construction had happened at all.</p>
+      <div class="src">SOURCE: CAG Report No. 4 of 2018 (Gujarat)</div>
+    </div>
+    <div class="case">
+      <span class="tag">Sanction bypass</span>
+      <h3>Jammu &amp; Kashmir</h3>
+      <p>CAG's district-level audit found 558 works executed without any MP recommendation at all — the single largest share among the states audited. District authorities' own explanation: "urgency of work," approved on a local legislator's assurance, MP's sign-off backfilled later.</p>
+      <div class="src">SOURCE: CAG MPLADS performance audit, district sampling</div>
+    </div>
+    <div class="case">
+      <span class="tag">Utilization anomaly</span>
+      <h3>Delhi, 16th Lok Sabha</h3>
+      <p>Of ₹187 crore entitled to Delhi's seven MPs, ₹133 crore sat unspent. Within the same city, same tenure, same rules: one MP had drawn down 98% of his entitlement, another under 43% — a gap flagged only because a journalist pulled the numbers, not because a system did.</p>
+      <div class="gap-demo">
+        <div class="gap-row"><span class="name">Udit Raj</span><div class="gap-bar-track"><div class="gap-bar-fill" style="width:97.6%"></div></div><span class="gap-pct">98%</span></div>
+        <div class="gap-row"><span class="name">Parvesh Verma</span><div class="gap-bar-track"><div class="gap-bar-fill low" style="width:42.3%"></div></div><span class="gap-pct">42%</span></div>
+      </div>
+      <div class="src">SOURCE: MoSPI MPLADS portal data, 2014–19 term</div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ================= WHY AI ================= -->
+<section class="why">
+  <div class="why-head">
+    <div class="eyebrow" style="color:var(--red);">03 — WHY THIS IS AN ML PROBLEM, NOT JUST A DASHBOARD</div>
+    <h2>Every failure mode above is a pattern in structured data. That's exactly what anomaly detection is for.</h2>
+    <p>None of these cases needed a whistleblower with inside access — they needed someone to notice a pattern across thousands of rows. That's a task suited to models, not headcount.</p>
+  </div>
+ 
+  <div class="pattern-grid">
+    <div class="pattern">
+      <div class="idx">01</div>
+      <div>
+        <h3>Cost-estimate outlier detection</h3>
+        <p>Flag works whose sanctioned cost sits far outside the distribution for comparable work type, material, and district — a wall that costs 4x the district median wall.</p>
+        <div class="maps-to">→ maps to duplicate-billing pattern (Gujarat case)</div>
+      </div>
+    </div>
+    <div class="pattern">
+      <div class="idx">02</div>
+      <div>
+        <h3>Vendor / implementing-agency graph analysis</h3>
+        <p>Cluster implementing agencies and contractors by shared bank details, addresses, or office-bearers to surface shell entities winning work repeatedly without competition.</p>
+        <div class="maps-to">→ maps to no-tender fraud pattern (Gujarat case)</div>
+      </div>
+    </div>
+    <div class="pattern">
+      <div class="idx">03</div>
+      <div>
+        <h3>Process-sequence deviation</h3>
+        <p>Every legitimate work has an expected sequence: recommendation → sanction → fund release → execution → completion. Flag works where a step is missing or out of order.</p>
+        <div class="maps-to">→ maps to unsanctioned-works pattern (J&amp;K case)</div>
+      </div>
+    </div>
+    <div class="pattern">
+      <div class="idx">04</div>
+      <div>
+        <h3>Utilization-rate anomaly &amp; delay prediction</h3>
+        <p>Peer-compare MPs and districts on spend velocity and completion time; predict which in-progress works are trending toward multi-year stalling before it happens.</p>
+        <div class="maps-to">→ maps to utilization-gap pattern (Delhi case)</div>
+      </div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ================= SOLUTION WALKTHROUGH ================= -->
+<section class="walk">
+  <div class="walk-head">
+    <div class="eyebrow">04 — SOLUTION APPROACH, TRACED THROUGH A REAL CASE</div>
+    <h2>Not a hypothetical. Here's how the pipeline would have caught this one.</h2>
+    <p>Every stage below maps to a real signal in a real CAG-documented case — not a made-up demo scenario.</p>
+  </div>
+ 
+  <div class="walk-case">
+    <span class="tag">CAG Report No. 4 of 2018 — Gujarat</span>
+    <p>An implementing agency, <b>Sharda Majoor Kamdar Mandli</b>, claimed <b>₹45.20 lakh</b> to renovate a panchayat building in Anand district in FY 2015–16 — then claimed the <b>same renovation again</b> the following year. Across nine villages it received <b>₹5.93 crore</b> without a single competitive tender, and auditors later found some sanctioned sites had no construction at all. CAG only surfaced this in a 2018 audit — years after both payments had gone out.</p>
+  </div>
+ 
+  <div class="trace">
+    <div class="trace-step">
+      <div class="trace-num">1</div>
+      <div class="trace-stage">Ingest</div>
+      <h4>The second sanction lands in the MIS</h4>
+      <p>Same building, same village, same implementing agency, same ₹45.20L amount — one financial year apart. On its own, a human reviewer scanning thousands of rows a year later has no reason to connect the two.</p>
+      <div class="data-snippet">work_title: "Renovation, Gram Panchayat Bldg, Anand"<br>agency: "Sharda Majoor Kamdar Mandli" · fy: 2016-17</div>
+    </div>
+    <div class="trace-step">
+      <div class="trace-num">2</div>
+      <div class="trace-stage">Duplicate detector</div>
+      <h4>Title + location + agency similarity check</h4>
+      <p>An NLP similarity model compares the new record against prior sanctions for the same agency and location. It scores this pair at ~0.97 similarity — near-identical.</p>
+      <div class="data-snippet">similarity_score: 0.97 <span class="flag">→ FLAG: possible re-billing</span></div>
+    </div>
+    <div class="trace-step">
+      <div class="trace-num">3</div>
+      <div class="trace-stage">Procurement rule check</div>
+      <h4>Was this agency ever competitively selected?</h4>
+      <p>A rule engine looks for a tender record behind each sanction. There isn't one — for either payment — and this agency has now drawn ₹5.93 crore cumulative without ever appearing in a tender record.</p>
+      <div class="data-snippet">tender_record: none <span class="flag">→ FLAG: IA selection bypass</span></div>
+    </div>
+    <div class="trace-step">
+      <div class="trace-num">4</div>
+      <div class="trace-stage">Vendor graph</div>
+      <h4>One agency, nine villages, zero competitors</h4>
+      <p>Graphing implementing agencies against the works they're assigned shows this agency tied to 9 villages under one MP's recommendations, with no competing bidder ever recorded across any of them.</p>
+      <div class="data-snippet">agency_works: 9 · competing_bids: 0 <span class="flag">→ FLAG: vendor concentration</span></div>
+    </div>
+    <div class="trace-step">
+      <div class="trace-num">5</div>
+      <div class="trace-stage">Risk scoring</div>
+      <h4>Three weak signals become one strong one</h4>
+      <p>Duplicate-billing score, no-tender flag, and vendor concentration combine into a composite risk score. The Gemini API turns the rule outputs into a plain-language note a district clerk can actually read.</p>
+      <div class="data-snippet">risk_score: 92/100 — HIGH RISK<br>"Repeat billing for a previously completed<br>renovation, sanctioned without competitive tender."</div>
+    </div>
+    <div class="trace-step">
+      <div class="trace-num">6</div>
+      <div class="trace-stage">Alert</div>
+      <h4>The flag appears before the money moves</h4>
+      <p>A red flag appears on the District Authority's dashboard the moment the second sanction is entered — before payment is released. The Ministry's dashboard rolls it into one cluster: 1 agency, 9 villages, ₹5.93 crore.</p>
+    </div>
+  </div>
+ 
+  <div class="verdict-compare">
+    <div class="verdict-col">
+      <div class="v-label">What actually happened</div>
+      <div class="v-time">Years later</div>
+      <p>CAG's performance audit surfaced this case in its 2018 report — after both payments had already been disbursed and the funds were gone.</p>
+    </div>
+    <div class="verdict-col win">
+      <div class="v-label">What the pipeline does</div>
+      <div class="v-time">Before disbursal</div>
+      <p>The duplicate check runs the moment the second sanction is entered — flagging it while the payment can still be stopped, not years after it can't.</p>
+    </div>
+  </div>
+</section>
+ 
+<!-- ================= TECHNICAL APPROACH ================= -->
+<section class="arch">
+  <div class="arch-head">
+    <div class="eyebrow" style="color:var(--teal);">05 — TECHNICAL APPROACH</div>
+    <h2>A pipeline from public data to a risk score someone can act on.</h2>
+  </div>
+ 
+  <div class="stack">
+    <div class="stack-row">
+      <div class="stack-label"><div class="k">Users</div><h4>Access via web browser</h4></div>
+      <div class="stack-chips">
+        <span class="chip">MPs</span><span class="chip">District Authorities</span><span class="chip">State / Central Authorities</span><span class="chip">Implementing Agencies</span><span class="chip">Auditors / Vigilance</span><span class="chip">General Public</span>
+      </div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label"><div class="k">Frontend</div><h4>User interface</h4></div>
+      <div class="stack-chips">
+        <span class="chip">React</span><span class="chip">TypeScript</span><span class="chip">Tailwind CSS</span><span class="chip">Redux</span><span class="chip">Axios</span><span class="chip">Chart.js</span><span class="chip">Mapbox</span><span class="chip">Responsive web app</span>
+      </div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label"><div class="k">Backend</div><h4>Application layer</h4></div>
+      <div class="stack-chips">
+        <span class="chip">Node.js</span><span class="chip">Express.js</span><span class="chip">JWT</span><span class="chip">Mongoose</span><span class="chip">REST APIs (JSON)</span>
+      </div>
+    </div>
+    <div class="stack-row ai">
+      <div class="stack-label"><div class="k">AI / ML services</div><h4>Anomaly &amp; risk engine</h4></div>
+      <div class="stack-chips">
+        <span class="chip ml">Python</span><span class="chip ml">scikit-learn</span><span class="chip ml">Pandas</span><span class="chip ml">NumPy</span><span class="chip ml">Gemini API</span>
+      </div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label"><div class="k">Database</div><h4>Storage layer</h4></div>
+      <div class="stack-chips">
+        <span class="chip">MongoDB — primary</span><span class="chip">Redis — caching</span><span class="chip">AWS S3 — object storage</span>
+      </div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label"><div class="k">Data sources</div><h4>Govt &amp; external</h4></div>
+      <div class="stack-chips">
+        <span class="chip">MPLADS MIS (official data)</span><span class="chip">Geospatial (maps, location)</span><span class="chip">Public datasets (estimates, demographics)</span><span class="chip">Third-party APIs (verification, geo-tagging)</span>
+      </div>
+    </div>
+    <div class="stack-row">
+      <div class="stack-label"><div class="k">Deployment</div><h4>Infrastructure</h4></div>
+      <div class="stack-chips">
+        <span class="chip">Docker</span><span class="chip">GitHub + CI/CD</span><span class="chip">AWS / GCP</span><span class="chip">Nginx (reverse proxy)</span><span class="chip">Prometheus + Grafana</span><span class="chip">ELK stack (logging)</span>
+      </div>
+    </div>
+  </div>
+  <div class="security-panel">
+    <span class="sec-item">HTTPS / SSL</span>
+    <span class="sec-item">JWT authentication</span>
+    <span class="sec-item">Role-based access control</span>
+    <span class="sec-item">Data encryption</span>
+    <span class="sec-item">Audit logs</span>
+    <span class="sec-item">Compliance with govt. standards</span>
+  </div>
+</section>
+ 
+<!-- ================= FEASIBILITY & VIABILITY ================= -->
+<section class="feas">
+  <div class="eyebrow">06 — FEASIBILITY &amp; VIABILITY</div>
+  <h2>Feasible today. Scalable for tomorrow.</h2>
+  <div class="feas-grid">
+    <div class="feas-col">
+      <div class="col-head">Feasibility analysis</div>
+      <div class="feas-item"><h4>Technical</h4><p>Uses existing, proven technologies and open data sources.</p></div>
+      <div class="feas-item"><h4>Economic</h4><p>Cost-effective and scalable using open-source tools.</p></div>
+      <div class="feas-item"><h4>Operational</h4><p>Can be integrated into existing government workflows.</p></div>
+      <div class="feas-item"><h4>Legal &amp; regulatory</h4><p>Complies with government data policies and security standards.</p></div>
+      <div class="feas-item"><h4>Scalability</h4><p>Can be extended to other schemes and states.</p></div>
+    </div>
+    <div class="feas-col risk">
+      <div class="col-head">Potential challenges &amp; risks</div>
+      <div class="feas-item"><h4>Data quality issues</h4><p>Incomplete, inconsistent, or delayed data from multiple sources.</p></div>
+      <div class="feas-item"><h4>Data privacy &amp; security</h4><p>Sensitive financial and project data needs protection.</p></div>
+      <div class="feas-item"><h4>Resistance to adoption</h4><p>Users may be hesitant to adopt a new system.</p></div>
+      <div class="feas-item"><h4>Integration challenges</h4><p>Different data formats and systems across departments.</p></div>
+      <div class="feas-item"><h4>False positives / model bias</h4><p>AI may flag genuine projects as suspicious.</p></div>
+    </div>
+    <div class="feas-col mit">
+      <div class="col-head">Strategies to overcome</div>
+      <div class="feas-item"><h4>Data standardization &amp; validation</h4><p>Cleaning, validation rules, and multiple data sources.</p></div>
+      <div class="feas-item"><h4>Strong security measures</h4><p>Encryption, role-based access, and compliance with govt. standards.</p></div>
+      <div class="feas-item"><h4>User training &amp; awareness</h4><p>Workshops and easy-to-use interfaces.</p></div>
+      <div class="feas-item"><h4>Modular &amp; flexible architecture</h4><p>APIs and interoperable design for smooth integration.</p></div>
+      <div class="feas-item"><h4>Continuous model improvement</h4><p>Regular retraining, with human review for critical cases.</p></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ================= IMPACT & BENEFITS ================= -->
+<section class="impact">
+  <div class="impact-head">
+    <div class="eyebrow" style="color:var(--red);">07 — IMPACT &amp; BENEFITS</div>
+    <h2>Stronger communities, built on funds that are actually tracked.</h2>
+  </div>
+  <div class="impact-grid">
+    <div class="impact-item"><div class="dot"></div><h4>Transparency</h4><p>Real-time tracking of funds, projects, and progress for greater visibility.</p></div>
+    <div class="impact-item"><div class="dot"></div><h4>Fraud detection</h4><p>Early identification of anomalies, irregularities, and suspicious patterns.</p></div>
+    <div class="impact-item"><div class="dot"></div><h4>Efficiency</h4><p>Optimized fund utilization through data-driven insights and trend analysis.</p></div>
+    <div class="impact-item"><div class="dot"></div><h4>Accountability</h4><p>Risk-based monitoring with alerts and evidence-based reporting.</p></div>
+    <div class="impact-item"><div class="dot"></div><h4>Decision-making</h4><p>Faster, data-driven decisions for proactive action by authorities.</p></div>
+    <div class="impact-item"><div class="dot"></div><h4>Public impact</h4><p>Timely and quality community development with better use of public funds.</p></div>
+  </div>
+  <div class="impact-tagline">"Transparent funds. Stronger communities. A better tomorrow."</div>
+</section>
+ 
+<!-- ================= PITCH TO TEAM ================= -->
+<section class="pitch">
+  <div class="pitch-head">
+    <div class="eyebrow" style="color:var(--red);">08 — WHY WE SHOULD PICK 26102</div>
+    <h2>Compared to the other options on the table, this one is unusually low-risk to build and hard to argue against in judging.</h2>
+  </div>
+  <div class="pitch-list">
+    <div class="pitch-item">
+      <div class="pitch-check">✓</div>
+      <div><h4>The dataset already exists and is public</h4><p>mplads.mospi.gov.in publishes live sanction, expenditure, and work-status data. No synthetic data, no scraping fight, no "we couldn't get real data" excuse in the demo.</p></div>
+    </div>
+    <div class="pitch-item">
+      <div class="pitch-check">✓</div>
+      <div><h4>A real ministry wrote this problem statement</h4><p>MoSPI's Data Informatics &amp; Innovation Division is the sponsoring department — there's a plausible path from prototype to something actually looked at, which is exactly what SIH-style judges reward.</p></div>
+    </div>
+    <div class="pitch-item">
+      <div class="pitch-check">✓</div>
+      <div><h4>The scope splits cleanly across a team</h4><p>Data pipeline, ML/anomaly models, risk-scoring backend, and multi-role dashboards are four genuinely separable workstreams — everyone gets a real piece, not busywork.</p></div>
+    </div>
+    <div class="pitch-item">
+      <div class="pitch-check">✓</div>
+      <div><h4>The story tells itself</h4><p>We're not pitching "AI for X" in the abstract — we can open with a real CAG-documented fraud case and show, concretely, which model would have caught it.</p></div>
+    </div>
+    <div class="pitch-item">
+      <div class="pitch-check">✓</div>
+      <div><h4>It's less contested than the obvious picks</h4><p>Chatbots, generic agri-tech, and health-symptom checkers are the themes every other team defaults to. A financial-integrity / GovTech anomaly system stands out in a room full of those.</p></div>
+    </div>
+    <div class="pitch-item">
+      <div class="pitch-check">✓</div>
+      <div><h4>The tech is achievable in hackathon time</h4><p>React + Node.js + MongoDB is a stack most of us already know; scikit-learn handles the anomaly models without training from scratch, and the Gemini API can generate the plain-language "why this was flagged" explanations for free.</p></div>
+    </div>
+  </div>
+</section>
+ 
+<!-- ================= RESEARCH & REFERENCES ================= -->
+<section class="evidence" style="padding-top:4rem; padding-bottom:4rem;">
+  <div class="eyebrow">09 — RESEARCH &amp; REFERENCES</div>
+  <h2 style="max-width:26ch;">MPLADS workflow &amp; data study</h2>
+  <div class="timeline" style="margin-top:2.5rem;">
+    <div class="tl-item"><div class="tl-text" style="color:var(--paper); font-family:'IBM Plex Mono',monospace; font-size:0.8rem;">Recommendation</div></div>
+    <div class="tl-item"><div class="tl-text" style="color:var(--paper); font-family:'IBM Plex Mono',monospace; font-size:0.8rem;">Sanction</div></div>
+    <div class="tl-item"><div class="tl-text" style="color:var(--paper); font-family:'IBM Plex Mono',monospace; font-size:0.8rem;">Cost Estimation</div></div>
+    <div class="tl-item"><div class="tl-text" style="color:var(--paper); font-family:'IBM Plex Mono',monospace; font-size:0.8rem;">Expenditure &amp; Fund Utilization</div></div>
+    <div class="tl-item"><div class="tl-text" style="color:var(--paper); font-family:'IBM Plex Mono',monospace; font-size:0.8rem;">Payments</div></div>
+    <div class="tl-item"><div class="tl-text" style="color:var(--paper); font-family:'IBM Plex Mono',monospace; font-size:0.8rem;">Work Progress</div></div>
+    <div class="tl-item"><div class="tl-text" style="color:var(--paper); font-family:'IBM Plex Mono',monospace; font-size:0.8rem;">Asset Creation &amp; Completion</div></div>
+  </div>
+  <p class="intro" style="margin-top:2rem;">Official reference &amp; data source: <b style="color:var(--paper);">MPLADS Digital Governance Dashboard</b> — primary data reference for understanding MPLADS monitoring and implementation, covering sanctions, expenditures, cost estimates, payments, work progress, completion status, and asset creation.</p>
+</section>
+ 
+<!-- ================= CLOSING ================= -->
+<section class="closing">
+  <div class="eyebrow">TEAM GENRAKSHAK · DECISION POINT</div>
+  <h2>Every other team will pitch an idea. We can pitch <em>a documented failure</em> and a plan to catch it.</h2>
+  <p>26102 gives us a real ministry sponsor, a real live dataset, a scope that splits cleanly across the team, and a demo that opens with an actual audited fraud case instead of a hypothetical. That's a rare combination — let's take it.</p>
+  <p style="margin-top:1.2rem; font-family:'Newsreader',serif; font-style:italic; font-size:1.15rem; color:var(--gold);">Transparent funds. Stronger communities. A better tomorrow.</p>
+  <div class="id-tag">
+    <span><b>Team</b>GenRakshak</span>
+    <span><b>MoSPI</b>Ministry of Statistics &amp; Programme Implementation</span>
+    <span><b>DIID</b>Data Informatics &amp; Innovation Division</span>
+    <span><b>Category</b>Software · Smart Automation</span>
+    <span><b>Dataset</b>mplads.mospi.gov.in/digigov/dashboard.html</span>
+  </div>
+</section>
+ 
+</body>
+</html>
+ 
